@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For My ❤️</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: linear-gradient(to right,#ff758c,#ff7eb3);
+    text-align:center;
+    color:white;
+    padding-top:80px;
+}
+.box{
+    background:white;
+    color:black;
+    padding:30px;
+    width:85%;
+    max-width:500px;
+    margin:auto;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,0,0,0.2);
+}
+button{
+    padding:10px 20px;
+    margin-top:20px;
+    font-size:16px;
+    border:none;
+    background:#ff4d6d;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+}
+.option-btn{
+    display:block;
+    margin:10px auto;
+    width:80%;
+    background:#ff85a2;
+}
+input{
+    padding:10px;
+    width:80%;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2 id="question"></h2>
+    <div id="answerArea"></div>
+    <button onclick="nextQuestion()" id="nextBtn" style="display:none;">Next</button>
+</div>
+
+<script>
+
+let questions = [
+{
+q:"Where did we first meet and where?",
+type:"text"
+},
+{
+q:"Whats ur fav destination location?",
+type:"text",
+},
+{
+q:"Your favourite memory with me?",
+type:"text"
+},
+{
+q:"What do you like in me?",
+type:"text"
+},
+{
+q:"What is the gift that I bought you first?",
+type:"text"
+},
+{
+q:"Will you be my forever Valentine? ❤️",
+type:"options",
+options:["Yes","No","Always❤️"]
+}
+];
+
+let index=0;
+let selected="";
+
+function loadQuestion(){
+    let q = questions[index];
+    document.getElementById("question").innerHTML = q.q;
+    let area = document.getElementById("answerArea");
+    area.innerHTML="";
+    document.getElementById("nextBtn").style.display="none";
+
+    if(q.type=="text"){
+        area.innerHTML='<input type="text" id="textAns" placeholder="Type your answer">';
+        document.getElementById("nextBtn").style.display="inline-block";
+    }
+    else if(q.type=="options"){
+        q.options.forEach(opt=>{
+            let btn = document.createElement("button");
+            btn.innerHTML=opt;
+            btn.className="option-btn";
+            btn.onclick=function(){
+                selected=opt;
+                nextQuestion();
+            };
+            area.appendChild(btn);
+        });
+    }
+}
+
+function nextQuestion(){
+    index++;
+    if(index<questions.length){
+        loadQuestion();
+    }else{
+        document.querySelector(".box").innerHTML=
+        "<h2>❤️ I LOVE YOU SO MUCH ❤️</h2><p>Happy Valentine's Day</p>";
+    }
+}
+
+loadQuestion();
+
+</script>
+</body>
+</html>
